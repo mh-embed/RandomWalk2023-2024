@@ -1,15 +1,14 @@
 // Search up Arduino Time library
 
-#define CONST_ROW_0 2
-#define CONST_ROW_1 3
-#define CONST_COL_0 5
-#define CONST_COL_1 6
+#define CONST_ROW_0 5
+#define CONST_ROW_1 6
+#define CONST_COL_0 2
+#define CONST_COL_1 3
 
 const int _rowPins[] = {CONST_ROW_0, CONST_ROW_1};
 const int _colPins[] = {CONST_COL_0, CONST_COL_1};
 
-int* arrayDeepCopy(const int arr1[]){
-  int size = sizeof(arr1)/sizeof(int);
+int* arrayDeepCopy(const int arr1[], const int size){
   int* arr2 = new int[size];
   for(int i = 0; i < size; i++){
     arr2[i] = arr1[i];
@@ -31,8 +30,8 @@ public:
     for (int j = 0; j < NUM_COLS; j++) {
       pinMode(input_col[j], OUTPUT);
     }
-    rowPins = arrayDeepCopy(input_row);
-    colPins = arrayDeepCopy(input_col);
+    rowPins = arrayDeepCopy(input_row, NUM_ROWS);
+    colPins = arrayDeepCopy(input_col, NUM_COLS);
   }
   
     void turnOn(int row, int col)
@@ -84,7 +83,9 @@ public:
       for (int col = 0; col < 2; col++) {
         matrix.turnOn(row, col);
         delay(100);
+        matrix.clear();
       }
     }
+
   }
 
